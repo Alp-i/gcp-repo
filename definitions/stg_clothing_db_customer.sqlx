@@ -1,0 +1,18 @@
+config {
+    type: "table",
+    schema: "staging",
+    name: "stg_clothing_db_customer"
+}
+
+SELECT
+  customer_id,
+  TRIM(first_name) AS first_name,
+  TRIM(last_name) AS last_name,
+  LOWER(email) AS email,
+  company,
+  city,
+  country,
+  subscription_date,
+  load_timestamp
+FROM
+  `datapipeline-468807.landingzone.clothing_db_customers`
