@@ -1,5 +1,6 @@
 [
- "clothing_db_customers"
+ "clothing_db_customers",
+ "pubsub_salesdata"
 ].forEach((name) =>
 declare({
     type:"declaration",
