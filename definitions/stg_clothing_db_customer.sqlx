@@ -1,5 +1,5 @@
 config {
-    type: "table",
+    type: "incremental",
     schema: "staging",
     name: "stg_clothing_db_customer"
 }
@@ -15,4 +15,4 @@ SELECT
   subscription_date,
   load_timestamp
 FROM
-  `datapipeline-468807.landingzone.clothing_db_customers`
+  ${ref({schema:"landingzone" ,name:"clothing_db_customers"})}
