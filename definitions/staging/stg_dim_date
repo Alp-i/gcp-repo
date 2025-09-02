@@ -1,0 +1,60 @@
+config {
+  type: "table",
+  schema: "staging",
+  name: "stg_dim_date",
+  tags: ["dimension", "date"]
+}
+
+SELECT
+  date AS date_key,
+  EXTRACT(YEAR FROM date) AS year,
+  EXTRACT(MONTH FROM date) AS month,
+  EXTRACT(DAY FROM date) AS day,
+  EXTRACT(QUARTER FROM date) AS quarter,
+  EXTRACT(DAYOFWEEK FROM date) AS day_of_week,
+  EXTRACT(DAYOFYEAR FROM date) AS day_of_year,
+  EXTRACT(WEEK FROM date) AS week,
+  EXTRACT(WEEK(SUNDAY) FROM date) AS week_starting_sunday,
+  FORMAT_DATE('%a', date) AS day_name_short,
+  FORMAT_DATE('%A', date) AS day_name,
+  FORMAT_DATE('%b', date) AS month_name_short,
+  FORMAT_DATE('%B', date) AS month_name,
+  FORMAT_DATE('%W', date) AS week_of_year_number,
+  DATE_TRUNC(date, MONTH) AS first_day_of_month,
+  DATE_TRUNC(date, QUARTER) AS first_day_of_quarter,
+  DATE_TRUNC(date, YEAR) AS first_day_of_year,
+  DATE_ADD(DATE_TRUNC(date, YEAR), INTERVAL 364 DAY) AS last_day_of_year,
+  (
+    CASE
+      WHEN EXTRACT(DAYOFWEEK FROM date) IN (1, 7) THEN TRUE
+      ELSE FALSE
+    END
+  ) AS is_weekend,
+  (
+    CASE
+      WHEN EXTRACT(DAYOFWEEK FROM date) IN (2, 3, 4, 5, 6) THEN TRUE
+      ELSE FALSE
+    END
+  ) AS is_weekday,
+  (
+    CASE
+      WHEN date = DATE_TRUNC(date, QUARTER) THEN TRUE
+      ELSE FALSE
+    END
+  ) AS is_quarter_start,
+  (
+    CASE
+      WHEN date = DATE_TRUNC(date, MONTH) THEN TRUE
+      ELSE FALSE
+    END
+  ) AS is_month_start,
+  (
+    CASE
+      WHEN date = DATE_TRUNC(date, YEAR) THEN TRUE
+      ELSE FALSE
+    END
+  ) AS is_year_start
+FROM
+  UNNEST(GENERATE_DATE_ARRAY('2020-01-01', '2029-12-31', INTERVAL 1 DAY)) AS date
+ORDER BY
+  date;
