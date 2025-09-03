@@ -1,5 +1,5 @@
 config {
-    type: "incremental",
+    type: "table",
     schema: "staging",
     name: "stg_clothing_db_customer"
 }
