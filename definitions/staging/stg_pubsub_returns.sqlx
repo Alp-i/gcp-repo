@@ -1,8 +1,8 @@
 config {
   type: "incremental",
-  schema: "staging",
-  description: "Silver layer: cleaned sales events"
+  schema: "staging"
 }
+
 
 SELECT
   event_id,
@@ -11,12 +11,13 @@ SELECT
   product_id,
   customer_id,
   color,
-  size as sizeproduct,
+  size,
   quantity,
   price,
   quantity*price as total_price,
   currency,
   payment_method,
+  returned_sale_id,
   timestamp as zaman
 FROM ${ref({schema:"landingzone" ,name:"pubsub_events"})}
-WHERE returned_sale_id IS NULL
+WHERE returned_sale_id IS NOT NULL
