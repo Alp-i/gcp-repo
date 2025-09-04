@@ -1,0 +1,12 @@
+config {
+  type: "table",
+  schema: "core"
+}
+SELECT
+  product_id,
+  branch,
+  COUNT(*) AS total_sales_count,
+  SUM(quantity) AS total_quantity_sold,
+  ROUND(SUM(quantity * price), 2) AS total_revenue
+FROM ${ref({schema:"staging" ,name:"stg_pubsub_sales"})}
+GROUP BY product_id,branch
