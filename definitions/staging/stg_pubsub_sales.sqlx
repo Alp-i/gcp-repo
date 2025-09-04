@@ -17,6 +17,6 @@ SELECT
   quantity*price as total_price,
   currency,
   payment_method,
-  timestamp as zaman
+  FORMAT_TIMESTAMP("%Y-%m-%d %H:%M", timestamp, "Europe/Istanbul") as sales_zaman
 FROM ${ref({schema:"landingzone" ,name:"pubsub_events"})}
 WHERE returned_sale_id IS NULL
