@@ -1,0 +1,15 @@
+config {
+    type: "incremental",
+    schema: "staging",
+    name: "stg_clothing_db_restock_movements"
+}
+
+SELECT 
+    restock_id, 
+    product_id, 
+    quantity, 
+    movement_date, 
+    supplier_id, 
+    branch_id 
+    FROM 
+    ${ref({schema:"landingzone" ,name:"clothing_db_restock_movements"})}

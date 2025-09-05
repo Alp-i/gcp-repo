@@ -1,0 +1,17 @@
+config {
+  type: "view",
+  schema: "mart",
+  name: "vw_sales_percurrency",
+  description: "Total revenue per currency, branch, and product"
+}
+
+
+SELECT
+  currency,
+  ROUND(SUM(total_revenue),2) AS total_revenue
+FROM
+  ${ref({schema:"core" ,name:"currency_totalsales_brpr"})}
+GROUP BY
+  currency
+ORDER BY
+  total_revenue DESC

@@ -1,0 +1,13 @@
+config {
+  type: "table",
+  schema: "core"
+}
+SELECT
+    branch_id,
+    product_id,
+    supplier_id,
+    SUM(quantity) AS total_quantity,
+    MAX(movement_date) AS last_restock_date
+FROM ${ref({schema:"staging" ,name:"stg_clothing_db_restock_movements"})}
+GROUP BY branch_id, product_id, supplier_id
+ORDER BY total_quantity DESC
