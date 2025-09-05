@@ -1,0 +1,13 @@
+config {
+    type: "table",
+    schema: "staging",
+    name: "stg_clothing_db_branches"
+}
+
+SELECT
+branch_id,
+branch_name,
+city,
+country 
+FROM
+  ${ref({schema:"landingzone" ,name:"branches"})}
