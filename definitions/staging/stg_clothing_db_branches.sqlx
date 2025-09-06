@@ -11,4 +11,3 @@ city,
 country 
 FROM
   ${ref({schema:"landingzone" ,name:"branches"})}
-  
