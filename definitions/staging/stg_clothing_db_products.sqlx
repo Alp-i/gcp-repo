@@ -1,0 +1,14 @@
+config {
+    type: "table",
+    schema: "staging",
+    name: "stg_clothing_db_products"
+}
+SELECT
+product_id,
+category, 
+material, 
+gender, 
+season, 
+ROUND(base_price,2) as base_price,
+ROUND(cost_price,2) as cost_price
+FROM ${ref({schema:"landingzone" ,name:"clothing_db_products"})}

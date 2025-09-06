@@ -1,0 +1,11 @@
+config {
+  type: "table",
+  schema: "staging"
+
+}
+
+SELECT supplier_id, 
+supplier_name, 
+contact_info,
+country 
+FROM ${ref({schema:"landingzone" ,name:"suppliers"})}

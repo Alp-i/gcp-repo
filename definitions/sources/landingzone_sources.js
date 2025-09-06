@@ -4,7 +4,8 @@
  "pubsub_shipments",
  "branches",
  "clothing_db_restock_movements",
- 
+ "clothing_db_products",
+ "suppliers"
 ].forEach((name) =>
 declare({
     type:"declaration",
