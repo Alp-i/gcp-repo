@@ -1,0 +1,19 @@
+config {
+  type: "view",
+  schema: "mart",
+  name: "vw_total_restock_perbr_category",
+  description: "Total revenue per currency, branch, and product"
+}
+
+SELECT
+    g.branch_id,
+    p.category,
+    SUM(g.total_quantity) AS total_quantity_per_branch_category
+FROM ${ref({schema:"core" ,name:"suppliers_total_restock_brpr"})} AS g
+JOIN ${ref({schema:"staging" ,name:"stg_clothing_db_products"})} AS p
+  ON g.product_id = p.product_id
+GROUP BY
+    g.branch_id,
+    p.category
+ORDER BY
+    total_quantity_per_branch_category DESC
