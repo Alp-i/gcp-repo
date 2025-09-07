@@ -8,9 +8,8 @@ config {
 SELECT
     currency,
     branch,
-    product_id,
     ROUND(SUM(total_price), 2) AS total_revenue,
     #CURRENT_DATE() AS snapshot_date
 FROM ${ref({schema:"staging" ,name:"stg_pubsub_sales"})}
 GROUP BY
-    currency, branch, product_id
+    currency, branch
