@@ -1,0 +1,6 @@
+config {
+    type: "view",
+    schema:"core"
+}
+SELECT carrier,durum, COUNT (*) AS amount FROM ${ref({schema:"staging", name:"stg_pubsub_shipments"})}
+GROUP BY carrier,durum
