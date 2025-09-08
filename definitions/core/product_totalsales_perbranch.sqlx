@@ -4,7 +4,7 @@ config {
 }
 SELECT
   product_id,
-  branch,
+  branch as branch_id,
   COUNT(*) AS total_sales_count,
   SUM(quantity) AS total_quantity_sold,
   ROUND(SUM(quantity * price), 2) AS total_revenue

@@ -3,12 +3,12 @@ config {
   schema: "core"
 }
 SELECT
-  b.branch_name,
+  b.branch_id,
   COUNT(*) AS total_return_count,
   SUM(r.quantity) AS total_quantity_return,
   ROUND(SUM(r.quantity * r.price), 2) AS total_return_expense
 FROM ${ref({schema:"staging" ,name:"stg_pubsub_returns"})} as r
 JOIN ${ref({schema:"landingzone" ,name:"branches"})} as b
 ON r.branch = b.branch_id
-GROUP BY b.branch_name
+GROUP BY b.branch_id
 ORDER BY total_return_expense DESC
